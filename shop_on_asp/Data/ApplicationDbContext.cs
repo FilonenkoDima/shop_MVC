@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using shop_on_asp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace shop_on_asp.Data
 {
@@ -8,5 +9,7 @@ namespace shop_on_asp.Data
         {
             
         }
+
+        public DbSet<Category> Categories {  get; set; } 
     }
 }

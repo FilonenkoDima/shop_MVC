@@ -16,5 +16,10 @@ namespace shop_on_asp.Controllers
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
+
+        public IActionResult Create() 
+        { 
+        return View();
+        }
     }
 }

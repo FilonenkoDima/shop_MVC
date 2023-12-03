@@ -37,5 +37,31 @@ namespace shop_on_asp.Controllers
 			}
 			return View();
 		}
+
+		public IActionResult Edit(int? id)
+		{
+			if(id == 0 || id == null) 
+			{ 
+				return NotFound();
+			}
+			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
+			if (categoryFromDB == null) 
+			{
+				return NotFound();
+			}
+			return View(categoryFromDB);
+		}
+
+		[HttpPost]
+		public IActionResult Edit(Category obj)
+		{
+			if (ModelState.IsValid)
+			{
+				_db.Categories.Update(obj);
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View();
+		}
 	}
 }

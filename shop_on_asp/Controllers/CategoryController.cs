@@ -34,6 +34,7 @@ namespace shop_on_asp.Controllers
 			{
 				_db.Categories.Add(obj);
 				_db.SaveChanges();
+				TempData["success"] = "Data created succesfully";
 				return RedirectToAction("Index");
 			}
 
@@ -64,6 +65,7 @@ namespace shop_on_asp.Controllers
 			{
 				_db.Categories.Update(obj);
 				_db.SaveChanges();
+				TempData["success"] = "Data edited succesfully";
 				return RedirectToAction("Index");
 			}
 
@@ -97,6 +99,7 @@ namespace shop_on_asp.Controllers
 
 			_db.Categories.Remove(obj);
 			_db.SaveChanges();
+			TempData["success"] = "Data deleted succesfully";
 			return RedirectToAction("Index");
 		}
 	}

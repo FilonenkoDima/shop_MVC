@@ -29,26 +29,31 @@ namespace shop_on_asp.Controllers
 			{
 				ModelState.AddModelError("name", $"The {nameof(obj.DisplayOrder)} can`t exactly match the {nameof(obj.Name)}");
 			}
+
 			if (ModelState.IsValid)
 			{
 				_db.Categories.Add(obj);
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
+
 			return View();
 		}
 
 		public IActionResult Edit(int? id)
 		{
-			if(id == 0 || id == null) 
-			{ 
-				return NotFound();
-			}
-			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
-			if (categoryFromDB == null) 
+			if (id == 0 || id == null)
 			{
 				return NotFound();
 			}
+
+			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
+
+			if (categoryFromDB == null)
+			{
+				return NotFound();
+			}
+
 			return View(categoryFromDB);
 		}
 
@@ -61,7 +66,38 @@ namespace shop_on_asp.Controllers
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
+
 			return View();
+		}
+
+		public IActionResult Delete(int? id)
+		{
+			if (id == 0 || id == null)
+			{
+				return NotFound();
+			}
+
+			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
+
+			if (categoryFromDB == null)
+			{
+				return NotFound();
+			}
+
+			return View(categoryFromDB);
+		}
+
+		[HttpPost, ActionName("Delete")]
+		public IActionResult DeletePOST(int? id)
+		{
+			Category obj = _db.Categories.FirstOrDefault(c => c.Id == id);
+
+			if (obj == null)
+				return NotFound();
+
+			_db.Categories.Remove(obj);
+			_db.SaveChanges();
+			return RedirectToAction("Index");
 		}
 	}
 }

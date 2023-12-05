@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shop_on_asp", "shop_on_asp\shop_on_asp.csproj", "{3C482E89-D6E5-44E5-BC6A-BEB356059685}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopRazor_Temp", "ShopRazor_Temp\ShopRazor_Temp.csproj", "{D34BED18-7243-491D-9468-F3C1C0607636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopRazor_Temp", "ShopRazor_Temp\ShopRazor_Temp.csproj", "{D34BED18-7243-491D-9468-F3C1C0607636}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

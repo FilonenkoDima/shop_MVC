@@ -1,4 +1,4 @@
-namespace shop_on_asp.Models
+namespace Shop.Models
 {
     public class ErrorViewModel
     {

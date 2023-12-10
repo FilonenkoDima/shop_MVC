@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using shop_on_asp.Data;
-using shop_on_asp.Models;
+using Shop.DataAccess.Data;
+using Shop.Models;
 
 namespace shop_on_asp.Controllers
 {

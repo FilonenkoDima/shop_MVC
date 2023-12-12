@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repository\IRepository\IRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
@@ -18,6 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Shop.Models\Shop.Models.csproj" />
     <ProjectReference Include="..\Shop.Utility\Shop.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Repository\IRepository\IRepository.cs" />
   </ItemGroup>
 
 </Project>

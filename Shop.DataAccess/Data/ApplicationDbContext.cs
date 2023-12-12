@@ -1,7 +1,7 @@
-﻿using shop_on_asp.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Models;
 
-namespace shop_on_asp.Data
+namespace Shop.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

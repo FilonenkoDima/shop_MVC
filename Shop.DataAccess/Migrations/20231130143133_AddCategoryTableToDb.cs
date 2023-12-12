@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace shop_on_asp.Migrations
+namespace Shop.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration

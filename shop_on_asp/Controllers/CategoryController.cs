@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess.Data;
+using Shop.DataAccess.Repository.IRepository;
 using Shop.Models;
 
 namespace shop_on_asp.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ApplicationDbContext _db;
-		public CategoryController(ApplicationDbContext db)
+		private readonly ICategoryRepository _categoryRepository;
+		public CategoryController(ICategoryRepository db)
 		{
-			_db = db;
+			_categoryRepository = db;
 		}
 		public IActionResult Index()
 		{
-			List<Category> objCategoryList = _db.Categories.ToList();
+			List<Category> objCategoryList = _categoryRepository.GetAll().ToList();
 			return View(objCategoryList);
 		}
 
@@ -32,8 +33,8 @@ namespace shop_on_asp.Controllers
 
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Add(obj);
-				_db.SaveChanges();
+				_categoryRepository.Add(obj);
+				_categoryRepository.Save();
 				TempData["success"] = "Data created succesfully";
 				return RedirectToAction("Index");
 			}
@@ -48,7 +49,7 @@ namespace shop_on_asp.Controllers
 				return NotFound();
 			}
 
-			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
+			Category? categoryFromDB = _categoryRepository.Get(a => a.Id == id);
 
 			if (categoryFromDB == null)
 			{
@@ -63,8 +64,8 @@ namespace shop_on_asp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Update(obj);
-				_db.SaveChanges();
+				_categoryRepository.Upadate(obj);
+				_categoryRepository.Save();
 				TempData["success"] = "Data edited succesfully";
 				return RedirectToAction("Index");
 			}
@@ -79,7 +80,7 @@ namespace shop_on_asp.Controllers
 				return NotFound();
 			}
 
-			Category? categoryFromDB = _db.Categories.FirstOrDefault(a => a.Id == id);
+			Category? categoryFromDB = _categoryRepository.Get(a => a.Id == id);
 
 			if (categoryFromDB == null)
 			{
@@ -92,13 +93,13 @@ namespace shop_on_asp.Controllers
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePOST(int? id)
 		{
-			Category obj = _db.Categories.FirstOrDefault(c => c.Id == id);
+			Category obj = _categoryRepository.Get(a => a.Id == id);
 
 			if (obj == null)
 				return NotFound();
 
-			_db.Categories.Remove(obj);
-			_db.SaveChanges();
+			_categoryRepository.Remove(obj);
+			_categoryRepository.Save();
 			TempData["success"] = "Data deleted succesfully";
 			return RedirectToAction("Index");
 		}

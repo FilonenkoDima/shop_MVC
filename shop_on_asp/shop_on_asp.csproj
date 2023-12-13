@@ -24,12 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\Index.cshtml">
+    <Content Update="Areas\Customer\Views\Home\Index.cshtml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <Content Update="Views\Home\Privacy.cshtml">
+    <Content Update="Areas\Customer\Views\Home\Privacy.cshtml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

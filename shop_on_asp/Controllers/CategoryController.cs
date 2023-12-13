@@ -7,14 +7,14 @@ namespace shop_on_asp.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ICategoryRepository _categoryRepository;
-		public CategoryController(ICategoryRepository db)
+		private readonly IUnitOfWork _unitOfWork;
+		public CategoryController(IUnitOfWork unitOfWork)
 		{
-			_categoryRepository = db;
+			_unitOfWork = unitOfWork;
 		}
 		public IActionResult Index()
 		{
-			List<Category> objCategoryList = _categoryRepository.GetAll().ToList();
+			List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
 			return View(objCategoryList);
 		}
 
@@ -33,8 +33,8 @@ namespace shop_on_asp.Controllers
 
 			if (ModelState.IsValid)
 			{
-				_categoryRepository.Add(obj);
-				_categoryRepository.Save();
+				_unitOfWork.Category.Add(obj);
+				_unitOfWork.Save();
 				TempData["success"] = "Data created succesfully";
 				return RedirectToAction("Index");
 			}
@@ -49,7 +49,7 @@ namespace shop_on_asp.Controllers
 				return NotFound();
 			}
 
-			Category? categoryFromDB = _categoryRepository.Get(a => a.Id == id);
+			Category? categoryFromDB = _unitOfWork.Category.Get(a => a.Id == id);
 
 			if (categoryFromDB == null)
 			{
@@ -64,8 +64,8 @@ namespace shop_on_asp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_categoryRepository.Upadate(obj);
-				_categoryRepository.Save();
+				_unitOfWork.Category.Upadate(obj);
+				_unitOfWork.Save();
 				TempData["success"] = "Data edited succesfully";
 				return RedirectToAction("Index");
 			}
@@ -80,7 +80,7 @@ namespace shop_on_asp.Controllers
 				return NotFound();
 			}
 
-			Category? categoryFromDB = _categoryRepository.Get(a => a.Id == id);
+			Category? categoryFromDB = _unitOfWork.Category.Get(a => a.Id == id);
 
 			if (categoryFromDB == null)
 			{
@@ -93,13 +93,13 @@ namespace shop_on_asp.Controllers
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePOST(int? id)
 		{
-			Category obj = _categoryRepository.Get(a => a.Id == id);
+			Category obj = _unitOfWork.Category.Get(a => a.Id == id);
 
 			if (obj == null)
 				return NotFound();
 
-			_categoryRepository.Remove(obj);
-			_categoryRepository.Save();
+			_unitOfWork.Category.Remove(obj);
+			_unitOfWork.Save();
 			TempData["success"] = "Data deleted succesfully";
 			return RedirectToAction("Index");
 		}

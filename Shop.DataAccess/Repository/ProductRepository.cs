@@ -17,9 +17,9 @@ namespace Shop.DataAccess.Repository
         {
             _db = db;
         }
-        public void Upadate(Category obj)
+        public void Upadate(Product obj)
         {
-            _db.Products.Update();
+            _db.Products.Update(obj);
         }
     }
 }

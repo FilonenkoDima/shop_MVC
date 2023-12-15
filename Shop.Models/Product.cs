@@ -44,7 +44,7 @@ namespace Shop.Models
         [ForeignKey("CategoryId")]
 		[ValidateNever]
 		public Category Category { get; set; }
-
-        public string ImageUrl { get; set; }
+		[ValidateNever]
+		public string ImageUrl { get; set; }
     }
 }

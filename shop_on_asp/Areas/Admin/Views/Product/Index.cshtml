@@ -1,6 +1,6 @@
 ﻿@model List<Product>
 
-<div class="card shadow border-0 mt-4">
+<div class="card shadow border-0 my-4">
 	<div class="card-header bg-secondary m-lg-0 py-3">
 		<div class="row">
 			<div class="col-12 text-center">
@@ -22,30 +22,11 @@
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>
-						Title
-					</th>
-					<th>
-						Description
-					</th>
-					<th>
-						ISBN
-					</th>
-					<th>
-						Author
-					</th>
-					<th>
-						Lisr Price
-					</th>
-					<th>
-						Price for 1-50
-					</th>
-					<th>
-						Price for 50+
-					</th>
-					<th>
-						Price for 100+
-					</th>
+					<th>Title</th>
+					<th>ISBN</th>
+					<th>Price</th>
+					<th>Author</th>
+					<th>Category</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -54,13 +35,10 @@
 				{
 					<tr>
 						<td>@obj.Title</td>
-						<td>@obj.Description</td>
 						<td>@obj.ISBN</td>
-						<td>@obj.Author</td>
 						<td>@obj.ListPrice</td>
-						<td>@obj.Price</td>
-						<td>@obj.Price50</td>
-						<td>@obj.Price100</td>
+						<td>@obj.Author</td>
+						<td></td>
 						<td>
 							<div class="w-75 btn-group" role="group">
 								<a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">

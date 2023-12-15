@@ -4,7 +4,8 @@ using Shop.Models;
 
 namespace shop_on_asp.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+	[Area("Admin")]
+	public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public ProductController(IUnitOfWork unitOfWork)
@@ -30,7 +31,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
             {
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
-                TempData["Success"] = "Data created succesffuly.";
+                TempData["Success"] = "Product created succesffuly.";
                 return RedirectToAction("Index");
             }
 
@@ -57,7 +58,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
             {
                 _unitOfWork.Product.Upadate(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Data edited succesfully.";
+                TempData["success"] = "Product edited succesfully.";
                 return RedirectToAction("Index");
             }
             return View();
@@ -89,7 +90,5 @@ namespace shop_on_asp.Areas.Admin.Controllers
             TempData["Success"] = "Product deleted succesffuly.";
             return RedirectToAction("Index");
         }
-
-
     }
 }

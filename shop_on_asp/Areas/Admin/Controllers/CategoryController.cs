@@ -5,6 +5,7 @@ using Shop.Models;
 
 namespace shop_on_asp.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -35,7 +36,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
             {
                 _unitOfWork.Category.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Data created succesfully";
+                TempData["success"] = "Category created succesfully";
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
             {
                 _unitOfWork.Category.Upadate(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Data edited succesfully";
+                TempData["success"] = "Category edited succesfully";
                 return RedirectToAction("Index");
             }
 
@@ -100,7 +101,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 
             _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Data deleted succesfully";
+            TempData["success"] = "Category deleted succesfully";
             return RedirectToAction("Index");
         }
     }

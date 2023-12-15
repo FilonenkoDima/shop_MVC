@@ -50,6 +50,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
             return View(productFromDb);
         }
 
+        [HttpPost]
         public IActionResult Edit(Product obj)
         {
             if (ModelState.IsValid)

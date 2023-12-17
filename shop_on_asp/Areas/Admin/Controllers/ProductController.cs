@@ -19,7 +19,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 
 		public IActionResult Index()
 		{
-			List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+			List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperty:"Category").ToList();
 			return View(objProductList);
 		}
 

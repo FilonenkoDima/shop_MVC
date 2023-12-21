@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Shop.DataAccess.Repository.IRepository
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
         ICompanyRepository Company { get; }
+		IShoppingCartRepository ShoppingCart { get; }
 
         void Save();
     }

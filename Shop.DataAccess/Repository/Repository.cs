@@ -52,9 +52,10 @@ namespace Shop.DataAccess.Repository
         }
 
         //Category,CoverType
-        public IEnumerable<T> GetAll(string? includeProperty = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperty = null)
         {
             IQueryable<T> query = dbSet;
+            query = query.Where(filter);
             if (!string.IsNullOrEmpty(includeProperty))
             {
                 foreach (var includeProp in includeProperty

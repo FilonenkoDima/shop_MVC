@@ -11,7 +11,7 @@ namespace Shop.DataAccess.Repository.IRepository
 	{
 		//T - Category
 		IEnumerable<T> GetAll(string? includeProperty = null);
-		T Get(Expression<Func<T, bool>> filter, string? includeProperty = null);
+		T Get(Expression<Func<T, bool>> filter, string? includeProperty = null, bool tracked = false);
 		void Add(T entity);
 		void Remove(T entity);
 		void RemoveRange(IEnumerable<T> entities);

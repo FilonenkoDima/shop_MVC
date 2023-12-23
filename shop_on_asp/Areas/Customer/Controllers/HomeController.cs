@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using Shop.DataAccess.Repository.IRepository;
 using Shop.Models;
 using System.Diagnostics;
@@ -59,6 +60,8 @@ namespace shop_on_asp.Areas.Customer.Controllers
                 // add card record
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
             }
+
+            TempData["Success"] = "Cart updated successfully";
 
             _unitOfWork.Save();
 

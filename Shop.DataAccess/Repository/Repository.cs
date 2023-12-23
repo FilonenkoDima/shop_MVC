@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shop.DataAccess.Data;
 using Shop.DataAccess.Repository.IRepository;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Shop.DataAccess.Repository
 {
@@ -26,9 +27,18 @@ namespace Shop.DataAccess.Repository
 			dbSet.Add(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter, string? includeProperty = null)
+		public T Get(Expression<Func<T, bool>> filter, string? includeProperty = null, bool tracked = false)
 		{
-			IQueryable<T> query = dbSet;
+			IQueryable<T> query;
+			if (tracked)
+			{
+				query = dbSet;
+			}
+			else
+			{
+				query = dbSet.AsNoTracking();
+			}
+
 			query = query.Where(filter);
 			if (!string.IsNullOrEmpty(includeProperty))
 			{
@@ -42,9 +52,11 @@ namespace Shop.DataAccess.Repository
 		}
 
 		//Category,CoverType
-		public IEnumerable<T> GetAll(string? includeProperty = null)
+		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperty = null)
 		{
 			IQueryable<T> query = dbSet;
+			if (filter != null)
+				query = query.Where(filter);
 			if (!string.IsNullOrEmpty(includeProperty))
 			{
 				foreach (var includeProp in includeProperty

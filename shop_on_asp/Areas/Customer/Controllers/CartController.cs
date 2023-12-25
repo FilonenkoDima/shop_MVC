@@ -85,7 +85,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
 			ShoppingCartVM.OrderHeader.ApplicationUserId = userId;
 
-			ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+			ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
 
 
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
@@ -94,17 +94,17 @@ namespace shop_on_asp.Areas.Customer.Controllers
 				ShoppingCartVM.OrderHeader.OrderTotal += cart.Price * cart.Count;
 			}
 			
-			if(ShoppingCartVM.OrderHeader.ApplicationUser.CompanyId.GetValueOrDefault() == 0)
+			if(applicationUser.CompanyId.GetValueOrDefault() == 0)
 			{
-				//it is a regular customer account and we need to capture payment
+				//it is a regular customer 
 				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending; 
 			}
 			else
 			{
 				//it is a company user
-				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
-				ShoppingCartVM.OrderHeader.PaymentStatus = SD.StatusApproved;
+				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
+				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
 			}
 
 			_unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
@@ -123,7 +123,18 @@ namespace shop_on_asp.Areas.Customer.Controllers
 				_unitOfWork.Save();
 			}
 
-			return View(ShoppingCartVM);
+			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+			{
+				//it is a regular customer account and we need to capture payment
+				//stripe logic
+			}
+
+			return RedirectToAction("OrderConfirmation", new { id=ShoppingCartVM.OrderHeader.Id});
+		}
+
+		public IActionResult OrderConfirmation(int id)
+		{
+			return View(id);
 		}
 
 		public IActionResult Plus(int cartId)

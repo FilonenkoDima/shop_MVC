@@ -20,7 +20,7 @@
 					<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-primary text-uppercase mb-5 btn-sm"><small>Continue Shopping</small></a>
 				</div>
 				<div class="col-md-10 offset-md-1">
-					@foreach (var item in Model.shoppingCartList)
+					@foreach (var item in Model.ShoppingCartList)
 					{
 						<div class="row border-bottom pb-3">
 							<div class="d-none d-lg-block col-lg-1 text-center py-2">
@@ -63,7 +63,7 @@
 						<ul class="list-group mb-4">
 							<li class="d-flex justify-content-between align-items-center">
 								<h5 class="text-dark fw-semibold text-uppercase"> Total (USD)</h5>
-								<h4 class="text-dark fw-bolder">@Model.OrderTotal.ToString("c", new System.Globalization.CultureInfo("En-us"))</h4>
+								<h4 class="text-dark fw-bolder">@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("En-us"))</h4>
 							</li>
 						</ul>
 					</div>

@@ -26,13 +26,14 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			ShoppingCartVM = new()
 			{
 				shoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
-				includeProperty: "Product")
+				includeProperty: "Product"),
+				OrderHeader = new()
 			};
 
 			foreach (var cart in ShoppingCartVM.shoppingCartList)
 			{
 				cart.Price = GetPriceBasedOnQuantity(cart);
-				ShoppingCartVM.OrderTotal += cart.Price * cart.Count;
+				ShoppingCartVM.OrderHeader.OrderTotal += cart.Price * cart.Count;
 			}
 
 			return View(ShoppingCartVM);

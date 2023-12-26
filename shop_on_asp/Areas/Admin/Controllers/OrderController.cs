@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess.Repository.IRepository;
 using Shop.Models;
+using Shop.Models.ViewModels;
 using Shop.Utility;
 using System.Diagnostics;
 
@@ -16,9 +17,21 @@ namespace shop_on_asp.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Index()
 		{
 			return View();
+		}
+
+        public IActionResult Details(int orderId)
+		{
+			OrderVM orderVM = new()
+			{
+				OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperty: "ApplicationUser"),
+				OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeader.Id == orderId, includeProperty: "Product")
+			};
+
+			return View(orderVM);
 		}
 
 		#region API CALLS

@@ -5,6 +5,7 @@ using Shop.DataAccess.Repository.IRepository;
 using Shop.Models;
 using Shop.Models.ViewModels;
 using Shop.Utility;
+using Stripe;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -18,17 +19,17 @@ namespace shop_on_asp.Areas.Admin.Controllers
 		[BindProperty]
 		public OrderVM OrderVM { get; set; }
 
-        public OrderController(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+		public OrderController(IUnitOfWork unitOfWork)
+		{
+			_unitOfWork = unitOfWork;
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
 		{
 			return View();
 		}
 
-        public IActionResult Details(int orderId)
+		public IActionResult Details(int orderId)
 		{
 			OrderVM = new()
 			{
@@ -41,7 +42,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
-        public IActionResult UpdateOrderDetail()
+		public IActionResult UpdateOrderDetail()
 		{
 			var orderHeaderFromDb = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
 			orderHeaderFromDb.Name = OrderVM.OrderHeader.Name;
@@ -62,7 +63,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 
 			TempData["Success"] = "Order Details Updated Successfully.";
 
-			return RedirectToAction(nameof(Details), new {orderId = orderHeaderFromDb.Id});
+			return RedirectToAction(nameof(Details), new { orderId = orderHeaderFromDb.Id });
 		}
 
 		[HttpPost]
@@ -97,6 +98,36 @@ namespace shop_on_asp.Areas.Admin.Controllers
 			return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
 		}
 
+		[HttpPost]
+		[Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+		public IActionResult CancelOrder()
+		{
+			var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == OrderVM.OrderHeader.Id);
+
+			if (orderHeader.PaymentStatus == SD.PaymentStatusApproved)
+			{
+				var options = new RefundCreateOptions
+				{
+					Reason = RefundReasons.RequestedByCustomer,
+					PaymentIntent = orderHeader.PaymentIntentId
+				};
+
+				var service = new RefundService();
+				Refund refund = service.Create(options);
+
+				_unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusRefunded);
+			}
+			else
+			{
+				_unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusCancelled, SD.StatusCancelled);
+			}
+
+			_unitOfWork.Save();
+			TempData["Success"] = "Order Cancelled Successfully.";
+
+			return RedirectToAction(nameof(Details), new { orderId = OrderVM.OrderHeader.Id });
+		}
+
 
 
 
@@ -107,7 +138,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 		{
 			IEnumerable<OrderHeader> objOrderHeaders;
 
-			if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
+			if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Employee))
 			{
 				objOrderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperty: "ApplicationUser").ToList();
 			}

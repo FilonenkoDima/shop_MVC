@@ -168,7 +168,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			return RedirectToAction("OrderConfirmation", new { id = ShoppingCartVM.OrderHeader.Id });
 		}
 
-		public IActionResult PaymentConfirmation(int id)
+		public IActionResult OrderConfirmation(int id)
 		{
 			OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperty: "ApplicationUser");
 			if (orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)

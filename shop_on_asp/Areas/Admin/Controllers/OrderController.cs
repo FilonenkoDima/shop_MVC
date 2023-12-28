@@ -59,7 +59,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 			if (string.IsNullOrEmpty(OrderVM.OrderHeader.Carrier))
 				orderHeaderFromDb.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
 
-			_unitOfWork.OrderHeader.Upadate(orderHeaderFromDb);
+			_unitOfWork.OrderHeader.Update(orderHeaderFromDb);
 			_unitOfWork.Save();
 
 			TempData["Success"] = "Order Details Updated Successfully.";
@@ -92,7 +92,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 				orderHeader.PaymentDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
 			}
 
-			_unitOfWork.OrderHeader.Upadate(orderHeader);
+			_unitOfWork.OrderHeader.Update(orderHeader);
 			_unitOfWork.Save();
 			TempData["Success"] = "Order Shipped Successfully.";
 

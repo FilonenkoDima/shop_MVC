@@ -19,7 +19,7 @@ namespace Shop.DataAccess.Repository
         }
 
 
-		public void Upadate(OrderHeader obj)
+		public void Update(OrderHeader obj)
 		{
 			_db.OrderHeaders.Update(obj);
 		}

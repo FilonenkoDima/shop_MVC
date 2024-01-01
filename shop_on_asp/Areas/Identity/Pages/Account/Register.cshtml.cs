@@ -210,7 +210,14 @@ namespace shop_on_asp.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        if(User.IsInRole(SD.Role_Admin)) 
+                        {
+                            TempData["Success"] = "New User Created successfully";
+                        }
+                        else
+                        {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

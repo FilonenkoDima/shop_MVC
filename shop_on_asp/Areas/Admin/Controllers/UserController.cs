@@ -31,8 +31,14 @@ namespace shop_on_asp.Areas.Admin.Controllers
 		{
 			IEnumerable<ApplicationUser> users = _db.ApplicationUsers.Include(u => u.Company);
 
+			var userRoles = _db.UserRoles.ToList();
+			var roles = _db.Roles.ToList();
+
 			foreach (var user in users)
 			{
+				var roleId = userRoles.FirstOrDefault(u => u.UserId == user.Id).RoleId;
+				user.Role = roles.FirstOrDefault(u => u.Id == roleId).Name;
+
 				if (user == null)
 					user.Company = new() { Name = "" };
 			}

@@ -30,6 +30,13 @@ namespace shop_on_asp.Areas.Admin.Controllers
 		public IActionResult GetAll()
 		{
 			IEnumerable<ApplicationUser> users = _db.ApplicationUsers.Include(u => u.Company);
+
+			foreach (var user in users)
+			{
+				if (user == null)
+					user.Company = new() { Name = "" };
+			}
+
 			return Json(new { data = users });
 		}
 

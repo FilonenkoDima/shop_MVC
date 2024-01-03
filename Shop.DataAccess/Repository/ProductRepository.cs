@@ -17,7 +17,7 @@ namespace Shop.DataAccess.Repository
         {
             _db = db;
         }
-        public void Upadate(Product obj)
+        public void Update(Product obj)
         {
             var objFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
             if (objFromDb != null)
@@ -31,6 +31,7 @@ namespace Shop.DataAccess.Repository
                 objFromDb.Description = obj.Description;
                 objFromDb.CategoryId = obj.CategoryId;
                 objFromDb.Author = obj.Author;
+                objFromDb.ProductImages = obj.ProductImages;
                 //if(obj.ImageUrl != null)
                 //    objFromDb.ImageUrl = obj.ImageUrl;
             }

@@ -9,6 +9,6 @@ namespace Shop.DataAccess.Repository.IRepository
 {
     public interface IProductRepository : IRepository<Product>
     {
-        void Upadate(Product obj);
+        void Update(Product obj);
     }
 }

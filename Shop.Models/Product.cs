@@ -46,6 +46,6 @@ namespace Shop.Models
 		public Category Category { get; set; }
         
         [ValidateNever]
-        List<ProductImage> Images { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
     }
 }

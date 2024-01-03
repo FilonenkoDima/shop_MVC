@@ -44,5 +44,8 @@ namespace Shop.Models
         [ForeignKey("CategoryId")]
 		[ValidateNever]
 		public Category Category { get; set; }
+        
+        [ValidateNever]
+        List<ProductImage> Images { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace shop_on_asp.Areas.Admin.Controllers
 			else
 			{
 				//update
-				productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+				productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperty: "ProductImages");
 				return View(productVM);
 			}
 		}

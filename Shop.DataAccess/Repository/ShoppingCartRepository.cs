@@ -19,7 +19,7 @@ namespace Shop.DataAccess.Repository
         }
 
 
-		public void Upadate(ShoppingCart obj)
+		public void Update(ShoppingCart obj)
 		{
 			_db.ShoppingCarts.Update(obj);
 		}

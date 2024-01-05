@@ -204,7 +204,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 		{
 			var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
 			cartFromDb.Count += 1;
-			_unitOfWork.ShoppingCart.Upadate(cartFromDb);
+			_unitOfWork.ShoppingCart.Update(cartFromDb);
 			_unitOfWork.Save();
 
 			return RedirectToAction(nameof(Index));
@@ -224,7 +224,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			else
 			{
 				cartFromDb.Count -= 1;
-				_unitOfWork.ShoppingCart.Upadate(cartFromDb);
+				_unitOfWork.ShoppingCart.Update(cartFromDb);
 			}
 
 			_unitOfWork.Save();

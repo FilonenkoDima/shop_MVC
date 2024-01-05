@@ -9,6 +9,6 @@ namespace Shop.DataAccess.Repository.IRepository
 {
 	public interface IShoppingCartRepository : IRepository<ShoppingCart>
 	{
-		void Upadate(ShoppingCart obj);
+		void Update(ShoppingCart obj);
 	}
 }

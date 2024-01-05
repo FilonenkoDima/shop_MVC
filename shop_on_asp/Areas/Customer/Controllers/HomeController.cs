@@ -24,7 +24,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 
 		public IActionResult Index()
 		{
-			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperty: "Category");
+			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperty: "Category,ProductImages");
 			return View(productList);
 		}
 
@@ -32,7 +32,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 		{
 			ShoppingCart cart = new ShoppingCart()
 			{
-				Product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperty: "Category"),
+				Product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperty: "Category,ProductImages"),
 				Count = 1,
 				ProductId = productId
 			};
@@ -55,7 +55,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			{
 				//shopping cart exists
 				cartFromDb.Count += shoppingCart.Count;
-				_unitOfWork.ShoppingCart.Upadate(cartFromDb);
+				_unitOfWork.ShoppingCart.Update(cartFromDb);
 				_unitOfWork.Save();
 			}
 			else

@@ -33,8 +33,11 @@ namespace shop_on_asp.Areas.Customer.Controllers
 				OrderHeader = new()
 			};
 
+			IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
 			{
+				cart.Product.ProductImages = productImages.Where(u => u.ProductId == cart.Product.Id).ToList();
 				cart.Price = GetPriceBasedOnQuantity(cart);
 				ShoppingCartVM.OrderHeader.OrderTotal += cart.Price * cart.Count;
 			}
@@ -201,7 +204,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 		{
 			var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
 			cartFromDb.Count += 1;
-			_unitOfWork.ShoppingCart.Upadate(cartFromDb);
+			_unitOfWork.ShoppingCart.Update(cartFromDb);
 			_unitOfWork.Save();
 
 			return RedirectToAction(nameof(Index));
@@ -221,7 +224,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 			else
 			{
 				cartFromDb.Count -= 1;
-				_unitOfWork.ShoppingCart.Upadate(cartFromDb);
+				_unitOfWork.ShoppingCart.Update(cartFromDb);
 			}
 
 			_unitOfWork.Save();

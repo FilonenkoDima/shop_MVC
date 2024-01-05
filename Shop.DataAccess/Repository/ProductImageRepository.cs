@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace Shop.DataAccess.Repository
 {
-	public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository
+	public class ProductImageRepository : Repository<ProductImage>, IProductImageRepository
 	{
 		private ApplicationDbContext _db;
-        public ShoppingCartRepository(ApplicationDbContext db) : base(db)
+        public ProductImageRepository(ApplicationDbContext db) : base(db)
         {
 			_db = db;
         }
 
 
-		public void Update(ShoppingCart obj)
+		public void Upadate(ProductImage obj)
 		{
-			_db.ShoppingCarts.Update(obj);
+			_db.ProductImages.Update(obj);
 		}
 	}
 }

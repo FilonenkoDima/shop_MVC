@@ -24,7 +24,7 @@ namespace shop_on_asp.Areas.Customer.Controllers
 
 		public IActionResult Index()
 		{
-			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperty: "Category");
+			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperty: "Category,ProductImages");
 			return View(productList);
 		}
 

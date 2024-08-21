@@ -27,4 +27,4 @@ You can preview this project [here](filonenkoshop.azurewebsites.net/).
 
 ## Demo
 
- ![]((https://github.com/FilonenkoDima/shop_MVC/blob/master/demo.gif))
+ ![](https://github.com/FilonenkoDima/shop_MVC/blob/master/demo.gif)

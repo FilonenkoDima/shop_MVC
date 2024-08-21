@@ -24,3 +24,7 @@ You can preview this project [here](filonenkoshop.azurewebsites.net/).
 - shop_on_asp/Areas – logic for role creation
 - shop_on_asp/Views – views
 - shop_on_asp/wwwroot – frontend
+
+## Demo
+
+ ![]((https://github.com/FilonenkoDima/shop_MVC/blob/master/demo.gif))
